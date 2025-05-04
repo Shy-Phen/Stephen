@@ -72,24 +72,43 @@ const ViewPage = () => {
               </div>
             </div>
           </div>
-          <div className="w-auto mb-8 border border-gray-700 rounded-md">
+          <div
+            className={
+              currentEval?.members?.length === 1
+                ? "w-auto mb-8 border-gray-700 rounded-md"
+                : "w-auto mb-8 border border-gray-700 rounded-md"
+            }
+          >
             <div className="overflow-x-auto scrollbar-hide">
-              <table className="table text-black">
-                <thead className="text-black border">
-                  <tr>
-                    <th>Student Name</th>
-                    <th>Individual Grade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentEval?.members?.map((mem, index) => (
-                    <tr key={index} className="">
-                      <td>{mem.name}</td>
-                      <td>{mem.score}</td>
+              {currentEval?.members?.length > 1 ? (
+                <table className="table text-black">
+                  <thead className="text-black border">
+                    <tr>
+                      <th>Student Name</th>
+                      <th>Individual Grade</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {currentEval?.members?.map((mem, index) => (
+                      <tr key={index}>
+                        <td>{mem.name}</td>
+                        <td>{mem.score}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="w-full ml-4">
+                  <div className="flex-row">
+                    <h3 className="text-lg text-black">
+                      Student Name:{" "}
+                      {currentEval?.members?.map((mem, index) => (
+                        <span key={index}>{mem.name}</span>
+                      ))}
+                    </h3>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -124,29 +143,33 @@ const ViewPage = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y">
-                  {currentEval?.assessmentFramework?.criteria.map((cri) => (
-                    <tr key={cri._id} className=" border-black text-black">
-                      <td className="p-4 border-r border-black">
-                        <div className="flex items-center">
-                          <span className="text-gray-500 text-xl mr-2">•</span>
-                          {cri.criteria}
-                        </div>
-                      </td>
-                      {cri?.descriptor?.map((desc, index) => (
-                        <td
-                          key={index}
-                          className="p-3 text-left border-r border-black"
-                        >
-                          {desc}
+                  {currentEval?.assessmentFramework?.criteriaArray.map(
+                    (cri) => (
+                      <tr key={cri._id} className=" border-black text-black">
+                        <td className="p-4 border-r border-black">
+                          <div className="flex items-center">
+                            <span className="text-gray-500 text-xl mr-2">
+                              •
+                            </span>
+                            {cri.criterion}
+                          </div>
                         </td>
-                      ))}
-                      <td className="p-4 text-left font-medium">
-                        {currentEval.criteriaAndScore.find(
-                          (score) => score.criteriaName === cri.criteria
-                        )?.score || "-"}
-                      </td>
-                    </tr>
-                  ))}
+                        {cri?.descriptor?.map((desc, index) => (
+                          <td
+                            key={index}
+                            className="p-3 text-left border-r border-black"
+                          >
+                            {desc}
+                          </td>
+                        ))}
+                        <td className="p-4 text-left font-medium">
+                          {currentEval.criteriaAndScore.find(
+                            (score) => score.criteriaName === cri.criterion
+                          )?.score || cri.score}
+                        </td>
+                      </tr>
+                    )
+                  )}
                 </tbody>
               </table>
             </div>

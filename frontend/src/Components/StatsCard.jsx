@@ -26,7 +26,7 @@ const StatsCard = ({ stats }) => {
           className="w-full h-20 rounded-md border border-none shadow-sm flex overflow-hidden bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500"
         >
           <div className="flex-1 flex flex-col py-2 pl-5">
-            <h2 className="text-xl text-white">{item.name}</h2>
+            <h2 className="text-sm lg:text-xl text-white">{item.name}</h2>
             <h1 className="font-bold text-2xl text-white">{item.total}</h1>
           </div>
           <div className="flex-1 flex justify-center items-center">

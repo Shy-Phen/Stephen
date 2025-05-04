@@ -10,7 +10,7 @@ const SearchRubricCard = ({ rubricData }) => {
   };
 
   return (
-    <div className="rounded-lg p-6 bg-slate-900 shadow-lg hover:shadow-xl h-40 w-full flex flex-col justify-between">
+    <div className="rounded-lg p-6 shadow-lg hover:shadow-xl h-40 w-full flex flex-col justify-between">
       <dialog id="viewRubric" className="modal">
         <div className="modal-box max-w-5xl">
           <form method="dialog">
@@ -21,7 +21,7 @@ const SearchRubricCard = ({ rubricData }) => {
           <h3 className="font-bold text-lg">{currentAssessment?.title}</h3>
 
           <table className="w-full border-collapse rounded-lg mt-8">
-            <thead className="border bg-black ">
+            <thead className="border ">
               <tr>
                 <th className="border-r">Criteria</th>
                 {currentAssessment?.scoringScale?.map((level) => (
@@ -32,10 +32,10 @@ const SearchRubricCard = ({ rubricData }) => {
               </tr>
             </thead>
             <tbody className="border border-black">
-              {currentAssessment?.criteria?.map((cri) => (
+              {currentAssessment?.criteriaArray?.map((cri) => (
                 <tr key={cri._id} className="border">
                   <td className="text-sm font-semibold border">
-                    {cri.criteria}
+                    {cri.criterion}
                   </td>
 
                   {cri.descriptor.map((index) => (
@@ -54,7 +54,7 @@ const SearchRubricCard = ({ rubricData }) => {
         </div>
       </dialog>
 
-      <h2 className="text-sm font-semibold text-white mb-2">
+      <h2 className="text-sm font-semibold mb-2">
         Group/Project name:{" "}
         <span className="text-sm text-blue-300">{rubricData.title}</span>
       </h2>

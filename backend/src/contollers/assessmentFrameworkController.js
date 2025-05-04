@@ -2,10 +2,10 @@ import AssessmentFramework from "../models/assessmentFrameworkModel.js";
 
 export const createAssessmentFramework = async (req, res) => {
   try {
-    const { title, scoringScale, criteria, total } = req.body;
+    const { title, scoringScale, criteriaArray, total } = req.body;
     const createdBy = req.userId;
 
-    if (!title || !scoringScale || !criteria || !total)
+    if (!title || !scoringScale || !criteriaArray || !total)
       return res
         .status(400)
         .json({ success: false, message: "Please fill all fields" });
@@ -21,7 +21,7 @@ export const createAssessmentFramework = async (req, res) => {
     const assessmentFramework = new AssessmentFramework({
       title,
       scoringScale,
-      criteria,
+      criteriaArray,
       createdBy,
       total,
     });
@@ -103,14 +103,14 @@ export const updateAssessmentFramework = async (req, res) => {
       id,
       updates,
       {
-        new: true, // Return the updated document
-        runValidators: true, // Ensure validation rules are applied
+        new: true,
+        runValidators: true,
       }
     );
 
     res.status(200).json({
       success: true,
-      message: "Asessment updated successfuly",
+      message: "Rubric updated successfuly",
       updatedFramework,
     });
   } catch (error) {

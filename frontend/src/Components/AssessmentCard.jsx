@@ -1,14 +1,17 @@
 import { Eye, Pencil, Trash2Icon } from "lucide-react";
 import { assessmentFrameworkStore } from "../store/assessmentFrameworkStore";
+import { useNavigate } from "react-router-dom";
 
 const AssessmentCard = ({ assessment }) => {
   const { deleteAssessment, getOneAssessment } = assessmentFrameworkStore();
+
+  const navigate = useNavigate();
 
   const handleEdit = (id) => {
     console.log("🖱️ Clicked Assessment ID:", id);
 
     getOneAssessment(id);
-    document.getElementById("my_modal_3").showModal();
+    navigate("/edit-rubric");
   };
 
   const handleView = (id) => {

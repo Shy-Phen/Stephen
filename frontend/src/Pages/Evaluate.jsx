@@ -37,7 +37,7 @@ const Evaluate = () => {
     <div className="ml-10 lg:ml-64 mt-14 h-screen overflow-auto bg-base-200">
       {evaluated.length === 0 && (
         <div className="flex justify-center items-center h-full w-full">
-          <h1 className="text-white text-4xl">No evaluation found</h1>
+          <h1 className=" text-4xl">No evaluation found</h1>
         </div>
       )}
 

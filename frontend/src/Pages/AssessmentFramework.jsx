@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { Loader } from "lucide-react";
 import AssessmentCard from "../Components/assessmentCard";
 
-import EditRubric from "../Components/EditRubric";
 import ViewRubric from "../Components/ViewRubric";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +25,7 @@ const AssessmentFramework = () => {
     <div className="ml-10 lg:ml-64 mt-14 h-screen overflow-auto bg-base-200">
       {assessments.length === 0 && !loading && (
         <div className="flex justify-center items-center size-full">
-          <h1 className="text-white text-4xl">Create Rubric</h1>
+          <h1 className=" text-4xl">Create Rubric</h1>
         </div>
       )}
       <div className="flex-1 overflow-auto">
@@ -50,7 +49,6 @@ const AssessmentFramework = () => {
         )}
       </div>
 
-      <EditRubric />
       <ViewRubric />
       <div className=" flex justify-center items-center rounded-full size-10 bg-black hover:bg-white absolute right-5 bottom-5">
         <button

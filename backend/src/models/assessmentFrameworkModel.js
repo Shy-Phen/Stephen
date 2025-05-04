@@ -19,9 +19,9 @@ const assessmentFramweworkSchema = new mongoose.Schema(
         },
       },
     ],
-    criteria: [
+    criteriaArray: [
       {
-        criteria: { type: String, required: true },
+        criterion: { type: String, required: true },
         descriptor: [{ type: String }],
       },
     ],

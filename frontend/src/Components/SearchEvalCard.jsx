@@ -10,13 +10,13 @@ const SearchEvalCard = ({ EvalData }) => {
   };
 
   return (
-    <div className="rounded-lg p-6 bg-slate-900 shadow-lg hover:shadow-xl h-40 w-full flex flex-col justify-between">
-      <h2 className="text-sm font-semibold text-white mb-2">
+    <div className="rounded-lg p-6 shadow-lg hover:shadow-xl h-40 w-full flex flex-col justify-between">
+      <h2 className="text-sm font-semibold mb-2">
         Group/Project name:{" "}
         <span className="text-sm text-blue-300">{EvalData.title}</span>
       </h2>
 
-      <p className="text-xs text-slate-300 mb-4 truncate">
+      <p className="text-xs mb-4 truncate">
         Member: <span className="font-medium">{EvalData.member}</span>
       </p>
 
@@ -29,7 +29,7 @@ const SearchEvalCard = ({ EvalData }) => {
           className="p-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           onClick={() => handleView(EvalData._id)}
         >
-          <EyeIcon className="size-4 text-white" />
+          <EyeIcon className="size-4" />
         </button>
       </div>
     </div>

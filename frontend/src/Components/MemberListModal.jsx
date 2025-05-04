@@ -98,7 +98,7 @@ const MemberListModal = ({ isModalOpen, setIsModalOpen }) => {
             })}
           </div>
 
-          <div className="modal-action">
+          <div className="flex justify-center items-center py-2">
             <button
               type="button"
               className="btn btn-primary"

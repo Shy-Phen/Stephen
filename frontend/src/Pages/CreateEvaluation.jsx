@@ -6,10 +6,11 @@ import { useForm, Controller, FormProvider } from "react-hook-form";
 import { evalValidationForm } from "../Validations/evaluationFormValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "lucide-react";
 
 const CreateEvaluation = () => {
   const { getAllAssessmentFramework, assessments } = assessmentFrameworkStore();
-  const { getOneAssessmentt, currentAssessmentt, createEvaluation } =
+  const { getOneAssessmentt, currentAssessmentt, createEvaluation, loading } =
     evaluateStore();
 
   const methods = useForm({
@@ -36,19 +37,15 @@ const CreateEvaluation = () => {
   const [selected, setSelected] = useState(false);
   const [isModalopen, setIsModalOpen] = useState(false);
 
-  // Watch for members
   const members = watch("members") || [];
 
-  // Load assessment frameworks when component mounts
   useEffect(() => {
     getAllAssessmentFramework();
   }, [getAllAssessmentFramework]);
 
-  // When an assessment framework is selected
   const handleSelectedAssessment = (id) => {
     getOneAssessmentt(id);
 
-    // Set the assessmentFramework field value
     setValue("assessmentFramework", id);
     setSelected(true);
   };
@@ -80,15 +77,6 @@ const CreateEvaluation = () => {
     }, 0);
   };
 
-  /* 
-  // Uncomment this if you want to keep criteriaTotalScore continuously updated
-  useEffect(() => {
-    const criteriaAndScore = watch("criteriaAndScore") || [];
-    const totalScore = calculateTotalScore(criteriaAndScore);
-    setValue("criteriaTotalScore", totalScore);
-  }, [watch("criteriaAndScore"), setValue]);
-  */
-
   const navigate = useNavigate();
   const onSubmit = (data) => {
     // Calculate the total score at submission time
@@ -113,6 +101,12 @@ const CreateEvaluation = () => {
           isModalOpen={isModalopen}
           setIsModalOpen={setIsModalOpen}
         />
+
+        {loading && (
+          <div className="flex items-center justify-center h-screen ">
+            <Loader className="size-10 animate-spin" />
+          </div>
+        )}
 
         {activeTab === "1" && (
           <div className="flex-grow flex flex-col items-center pt-20">
@@ -235,19 +229,19 @@ const CreateEvaluation = () => {
 
                 <div className="rounded-lg w-full max-w-4xl mx-auto">
                   <div className="max-h-[65vh] overflow-y-auto pr-2">
-                    {currentAssessmentt?.criteria.map((criterion, index) => (
+                    {currentAssessmentt?.criteriaArray.map((cri, index) => (
                       <div
-                        key={criterion._id}
+                        key={cri._id}
                         className="mb-6 shadow-lg rounded-md p-4"
                       >
                         <h2 className="text-lg font-semibold mb-4 overflow-x-auto ">
-                          {index + 1}. {criterion.criteria}
+                          {index + 1}. {cri.criterion}
                         </h2>
 
                         <Controller
                           control={control}
                           name={`criteriaAndScore.${index}.criteriaName`}
-                          defaultValue={criterion.criteria}
+                          defaultValue={cri.criterion}
                           render={({ field }) => (
                             <input type="hidden" {...field} />
                           )}

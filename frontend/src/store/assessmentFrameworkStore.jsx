@@ -18,15 +18,15 @@ export const assessmentFrameworkStore = create((set, get) => ({
   setFormData: (formData) => set({ formData }),
 
   createAssessment: async (data) => {
+    set({ loading: true });
     try {
-      set({ isCreating: true });
       await axiosInstance.post("/assessment-framework", data);
       get().getAllAssessmentFramework();
       toast.success("Rubric Created");
     } catch (error) {
       toast.error(error);
     } finally {
-      set({ isCreating: false });
+      set({ loading: false });
     }
   },
 
@@ -69,7 +69,6 @@ export const assessmentFrameworkStore = create((set, get) => ({
       console.log("Fetched assessment:", res.data.assessmentFramework);
       set({
         currentAssessment: res.data.assessmentFramework,
-        formData: res.data.assessmentFramework,
       });
     } catch (error) {
       console.log("Error in getting assessment", error);
@@ -78,21 +77,17 @@ export const assessmentFrameworkStore = create((set, get) => ({
     }
   },
 
-  updateAssessment: async (id) => {
+  updateAssessment: async (id, data) => {
     set({ loading: true });
     try {
-      const { formData } = get();
-      const res = await axiosInstance.put(
-        `/assessment-framework/${id}`,
-        formData
-      );
+      const res = await axiosInstance.put(`/assessment-framework/${id}`, data);
       set({ currentAssessment: res.data.updatedFramework });
       set((state) => ({
         assessments: state.assessments.map((assess) =>
           assess._id === id ? res.data.updatedFramework : assess
         ),
       }));
-      document.getElementById("my_modal_3").close();
+
       toast.success("Rubric updated successfully");
     } catch (error) {
       toast.error("Something went wrong");

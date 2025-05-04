@@ -126,7 +126,7 @@ export const downloadReport = async (req, res) => {
 
     // Calculate row height based on available space and number of criteria
     const availableHeight = doc.page.height - currentY - 40; // Leave room for footer
-    const criteriaCount = rubric.criteria?.length || 1;
+    const criteriaCount = rubric.criteriaArray?.length || 1;
     // Use a minimum height but adjust if there are many criteria
     const rowHeight = Math.max(
       Math.min(40, availableHeight / criteriaCount),
@@ -137,8 +137,8 @@ export const downloadReport = async (req, res) => {
     let needsNewPage = false;
 
     // Draw each criteria row
-    if (rubric.criteria && rubric.criteria.length > 0) {
-      rubric.criteria.forEach((criterion, criterionIndex) => {
+    if (rubric.criteriaArray && rubric.criteriaArray.length > 0) {
+      rubric.criteriaArray.forEach((cri, criterionIndex) => {
         // Check if we need a new page before drawing this row
         if (currentY + rowHeight > doc.page.height - 40) {
           doc.addPage();
@@ -150,7 +150,7 @@ export const downloadReport = async (req, res) => {
 
         // Draw criteria name
         drawTableCell(
-          criterion.criteria,
+          cri.criterion,
           tableLeft,
           currentY,
           criteriaColWidth,
@@ -160,7 +160,7 @@ export const downloadReport = async (req, res) => {
 
         // Draw descriptor cells for each scoring scale level
 
-        criterion.descriptor.forEach((desc, descIndex) => {
+        cri.descriptor.forEach((desc, descIndex) => {
           // Only draw if we have a corresponding scoring scale
           if (descIndex < scoringScaleLength) {
             const x = tableLeft + criteriaColWidth + descIndex * scoreColWidth;

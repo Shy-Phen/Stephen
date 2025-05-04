@@ -20,7 +20,7 @@ const ViewRubric = () => {
       // Create a temporary link element to trigger the download
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `rubric-${id}.pdf`); // Name the file
+      link.setAttribute("download", `rubric-${id}.pdf`);
       document.body.appendChild(link);
       link.click();
 
@@ -67,10 +67,10 @@ const ViewRubric = () => {
             </tr>
           </thead>
           <tbody className="border">
-            {currentAssessment?.criteria?.map((cri) => (
+            {currentAssessment?.criteriaArray?.map((cri) => (
               <tr key={cri._id} className="border">
                 <td className="text-sm font-semibold border text-center ">
-                  {cri.criteria}
+                  {cri.criterion}
                 </td>
 
                 {cri.descriptor.map((index) => (
